@@ -1,5 +1,6 @@
-var test        = require('tap').test;
-var CustomError = require('../src/utils').CustomError;
+var test            = require('tap').test;
+var CustomError     = require('../src/utils').CustomError;
+var throwAsyncError = require('../src/utils').throwAsyncError
 
 
 function Bar (){
@@ -35,4 +36,44 @@ test('CustomError throw',function(t){
    t.end()
 })
 
+test('throw Async Error (Promise) ', function(t){   // simulate promise async aware error throwing, promise avalable
+   var baz = {} 
+   baz.throwAsyncError = throwAsyncError; // get async error throwing function
+
+   var p = new Promise(function(res, rej){
+      baz.reject = rej;
+   })
+
+   test('throws async error', function(t){
+       t.plan(1);
+       var error = 'error in promise'
+       baz.throwAsyncError(error);  // throw error (calls reject(..) if Promise is globaly avalable)
+
+       p.then(null,
+         function rejected(err){ 
+            t.equals(err, error);
+       })
+   })
+
+   t.end()
+})
  
+test('throw Async Error (no Promise)', function(t){ //' when no promise is avalable just throw error
+   test('throws error', function(t){
+       t.plan(1);
+
+       var baz = {} 
+       var error = 'sync error'
+       baz.throwAsyncError = throwAsyncError; // get async error throwing function
+       
+       Promise = ''                  // simulate no promise avalable
+       var savedPromise = Promise;
+
+       t.throw(baz.throwAsyncError.bind(baz, error), error);
+      
+       Promise = savedPromise;      // return promise functionality
+       
+   })
+
+   t.end()
+})
