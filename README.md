@@ -1,4 +1,4 @@
-## twiz-client-utils [![Build Status](https://travis-ci.org/gits2501/twiz-client-utils.svg?branch=master)](https://travis-ci.org/gits2501/twiz-client-utils)
+## twiz-client-utils [![Build Status](https://travis-ci.org/gits2501/twiz-client-utils.svg?branch=master)](https://travis-ci.org/gits2501/twiz-client-utils) [![Coverage Status](https://coveralls.io/repos/github/gits2501/twiz-client-utils/badge.svg?branch=master)](https://coveralls.io/github/gits2501/twiz-client-utils?branch=master)
 Utility functions and modulules that are used in [twiz-client](https://github.com/gits2501/twiz-client). But can be used elsewhere.
 
 #### Current functions:
